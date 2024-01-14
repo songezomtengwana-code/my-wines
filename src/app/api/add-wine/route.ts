@@ -1,7 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: any) {
   const { searchParams } = new URL(request.url);
   const name = searchParams.get("name");
   const year = searchParams.get("year");

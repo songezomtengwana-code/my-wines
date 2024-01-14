@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
  
-export async function GET(request) {
+export async function GET(request: any) {
   try {
     const result =
       await sql`CREATE TABLE wines (

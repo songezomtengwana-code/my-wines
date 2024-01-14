@@ -1,44 +1,61 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 function Home() {
-  const [wines, setWines] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const getData = async () => {
-    await fetch("/api/get-wines")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.data.rows);
-        setWines(data.data.rows);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false);
-      });
+  const handleSubmit = () => {
+    if (email.length > 5 || password.length > 3) {
+      console.log(email, password);
+    }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (loading) {
-    return <h1>Loading</h1>;
-  } else {
-    return (
-      <div className="container mx-auto p-4">
-        {/* Dashboard header, filters, etc. */}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {wines.map((wine) => (
-              <div key={wine.id} className="bg-white shadow-md rounded-lg p-4">
-                {wine.name}
-              </div>
-            ))}
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="bg-white rounded-lg shadow-md p-8 w-4/5 md:w-1/2 lg:w-1/3">
+        <h2 className="text-2xl font-bold mb-6 text-center">My Wines</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Sign In
+          </button>
+        </form>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Home;
