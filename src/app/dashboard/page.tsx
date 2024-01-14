@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { GetWineData } from "../model/get-wine.model";
+import Link from "next/link";
 
 function Dashboard() {
   const [wines, setWines] = useState<GetWineData[]>([]);
@@ -39,9 +40,9 @@ function Dashboard() {
             ))}
           </div> */}
         <h1 className="text-2xl font-bold mb-6">Welcome Back, $username</h1>
-        <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <Link href='/create'  className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Add New Wine
-        </button>
+        </Link>
         <table className="table-auto w-full mt-6 rounded-lg overflow-hidden">
           <thead>
             <tr>

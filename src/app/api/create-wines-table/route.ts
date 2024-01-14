@@ -12,7 +12,7 @@ export async function GET(request: any) {
         varietal VARCHAR(50) NOT NULL,
         rating FLOAT CHECK (rating BETWEEN 1 AND 5),
         consumed BOOLEAN,
-        date_consumed DATE
+        date_consumed VARCHAR(50)
       );`;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {

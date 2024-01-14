@@ -13,7 +13,7 @@ export default function Create() {
     varietal: "",
     rating: 0.0,
     consumed: isConsumed,
-    date_consumed: consumptionDate
+    date_consumed: consumptionDate,
   });
 
   const handleChange = (
@@ -28,21 +28,23 @@ export default function Create() {
     setConsumptionDate(e.target.value);
   };
 
+  /**
+   *
+   * @param e
+   */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/add-wine", {
+      await fetch("/api/add-wine", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(wineData),
-      });
-
-    } catch (error) {
-
-    }
-    console.log({ wineData: wineData });
+      }).then(() => {});
+    } catch (error) {}
+    console.log(JSON.stringify(wineData));
   };
+
   return (
     <div className="container mx-auto p-4 justify-center">
       <div className="container p-4">
@@ -165,12 +167,20 @@ export default function Create() {
               )}
             </div>
           </div>
-          <button
-            type="submit"
-            className="bg-emerald-500 w-full hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Add Wine
-          </button>
+          <div className="flex">
+            <button
+              type="submit"
+              className="bg-white-500 w-full hover:bg-neutral-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-emerald-400 w-full hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Add Wine
+            </button>
+          </div>
         </form>
 
         <h1 className="text-2xl font-bold mb-4 mt-9">Wine Preview</h1>
