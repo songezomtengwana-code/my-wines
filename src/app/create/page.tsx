@@ -11,7 +11,7 @@ export default function Create() {
     year: 0,
     type: "Red",
     varietal: "",
-    rating: 0.0,
+    rating: 0,
     consumed: isConsumed,
     date_consumed: consumptionDate,
   });
@@ -26,6 +26,8 @@ export default function Create() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setConsumptionDate(e.target.value);
+    if (consumptionDate === "N/A") setConsumptionDate(e.target.value);
+    console.log(consumptionDate);
   };
 
   /**
@@ -36,13 +38,18 @@ export default function Create() {
     e.preventDefault();
 
     try {
+      setWineData({
+        ...wineData,
+        consumed: isConsumed,
+        date_consumed: consumptionDate,
+      });
+      console.log(JSON.stringify(wineData));
       await fetch("/api/add-wine", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(wineData),
       }).then(() => {});
     } catch (error) {}
-    console.log(JSON.stringify(wineData));
   };
 
   return (
@@ -147,17 +154,20 @@ export default function Create() {
             <div className="flex gap-3">
               <input
                 type="checkbox"
-                id="myCheckbox"
-                name="myCheckbox"
+                id="consumed"
+                name="consumed"
                 checked={isConsumed}
-                onChange={(event) => setIsConsumed(!isConsumed)}
+                onChange={() => {
+                  setIsConsumed(!isConsumed);
+                  console.log(isConsumed);
+                }}
                 className="checked:bg-emerald-500"
               />
               {isConsumed ? (
                 <input
                   type="date"
-                  id="dateInput"
-                  name="dateInput"
+                  id="date_consumed"
+                  name="date_consumed"
                   value={consumptionDate}
                   onChange={handleDateChange}
                   className="required:border-red-500 "
@@ -202,7 +212,7 @@ export default function Create() {
               <td className="px-4 py-2">{wineData.year}</td>
               <td className="px-4 py-2">{wineData.type}</td>
               <td className="px-4 py-2">{wineData.rating}</td>
-              {wineData.consumed === false ? (
+              {isConsumed === false ? (
                 <td className="px-4 py-2">No</td>
               ) : (
                 <td className="px-4 py-2">Yes</td>

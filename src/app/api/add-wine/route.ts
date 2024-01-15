@@ -12,8 +12,6 @@ export async function GET(request: Request) {
   const date_consumed = searchParams.get("date_consumed");
 
   try {
-    if (!name || !year || !type || !varietal || !rating)
-      throw new Error("Pet and owner names required");
     await sql`INSERT INTO wines (name, year, type, varietal, rating, consumed, date_consumed) VALUES (${name}, ${year}, ${type}, ${varietal}, ${rating}, ${consumed}, ${date_consumed})`;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
