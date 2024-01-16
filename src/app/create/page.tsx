@@ -43,13 +43,20 @@ export default function Create() {
         consumed: isConsumed,
         date_consumed: consumptionDate,
       });
-      console.log(JSON.stringify(wineData));
+
       await fetch("/api/add-wine", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(wineData),
-      }).then(() => {});
-    } catch (error) {}
+      }).then(() => {
+        console.log("wine hase been added successfully");
+      });
+    } catch (error) {
+      console.error({
+        error: error,
+        wineData: wineData,
+      });
+    }
   };
 
   return (

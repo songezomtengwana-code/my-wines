@@ -31,9 +31,10 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     );
   }
 
+  console.log(req.body);
+
   try {
     const { data }: { data: WineData } = req.body;
-    console.log(req.body);
 
     await sql`INSERT INTO wines (name, year, type, varietal, rating, consumed, date_consumed) VALUES (${data.name}, ${data.year}, ${data.type}, ${data.varietal}, ${data.rating}, ${data.consumed}, ${data.date_consumed})`;
     return NextResponse.json({ data }, { status: 200 });

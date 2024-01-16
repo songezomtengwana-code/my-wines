@@ -26,7 +26,9 @@ function Dashboard() {
   }, []);
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return <div className="container h-full w-full grid place-content-center mx-auto p-4">
+      <h1 className="text-center animate-pulse">Loading...</h1>
+    </div>;
   } else {
     return (
       <div className="container mx-auto p-4">
